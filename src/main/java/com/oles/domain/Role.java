@@ -15,7 +15,6 @@ import java.util.List;
 
 @javax.persistence.Entity
 public class Role implements Serializable {
-
     @javax.persistence.Id
     private Long id;
     private String no;
