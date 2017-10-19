@@ -1,7 +1,7 @@
 package com.oles.security;
 
-import com.oles.domain.User;
 
+import com.oles.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +13,7 @@ public class CustomUserDetails extends User implements UserDetails {
     private static final long serialVersionUID = 1L;
     private String role;
 
-    public CustomUserDetails(User user,String role) {
+    public CustomUserDetails(User user, String role) {
         super(user);
         this.role = role;
 
@@ -47,7 +47,8 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return super.getUserName();
     }
+
 
 }

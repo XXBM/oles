@@ -26,10 +26,9 @@ public abstract class User implements Serializable {
 	protected String password;
 
 
-	@javax.persistence.ManyToOne
-	@JoinColumn(name = "resource_id")
-	protected Resource resource;
-
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	protected Role role;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -60,12 +59,16 @@ public abstract class User implements Serializable {
 		this.password = password;
 	}
 
-	public Resource getResource() {
-		return resource;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setResource(Resource resource) {
-		this.resource = resource;
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {

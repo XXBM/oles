@@ -1,11 +1,10 @@
 package com.oles.repository;
 
 import com.oles.JpaRepository.MyRepository;
-import com.oles.domain.Resource;
+import com.oles.domain.RoleAssResource;
 import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface ResourceRepository extends MyRepository<Resource,Long> {
-
+public interface RoleAssResourceRepository extends MyRepository<RoleAssResource, Long> {
 }
