@@ -40,6 +40,7 @@ public abstract class User implements Serializable {
 	}
 	public User(User user) {
 		this.id = user.id;
+		this.userName = user.userName;
 		this.password = user.password;
 	}
 
