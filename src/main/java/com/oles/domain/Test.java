@@ -7,6 +7,7 @@ import com.oles.jsonDeserialize.CustomDateSerializer;
 
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Set;
 
@@ -19,9 +20,7 @@ import java.util.Set;
  */
  
 @javax.persistence.Entity 
-public class Test {
-
-	 
+public class Test implements Serializable {
 	@javax.persistence.Id
 	private Long id;
 

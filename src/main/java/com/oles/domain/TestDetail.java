@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import java.io.Serializable;
 import java.util.Set;
 
 
@@ -16,8 +17,7 @@ import java.util.Set;
  */
  
 @javax.persistence.Entity 
-public class TestDetail {
-
+public class TestDetail implements Serializable {
 	@javax.persistence.Id
 	private Long id;
 

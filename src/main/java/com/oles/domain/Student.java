@@ -16,8 +16,8 @@ import java.util.Set;
  
 @javax.persistence.Entity 
 public class Student extends User {
-
 	private String idNo;
+	private String name;
 
 	@JsonIgnore
 	@javax.persistence.OneToMany(mappedBy = "student",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -25,6 +25,14 @@ public class Student extends User {
 
 	public Student(){
 		super();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getIdNo() {
