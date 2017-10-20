@@ -2,6 +2,7 @@ package com.oles.domain;
 
 
 import javax.persistence.JoinColumn;
+import java.io.Serializable;
 
 /**
  * <!-- begin-user-doc -->
@@ -10,8 +11,7 @@ import javax.persistence.JoinColumn;
  */
  
 @javax.persistence.Entity 
-public class StudentTestDetail
-{
+public class StudentTestDetail implements Serializable {
 	 
 	@javax.persistence.Id
 	private Long id;
@@ -37,6 +37,10 @@ public class StudentTestDetail
 		super();
 	}
 
+	public StudentTestDetail(Student student, TestDetail testDetail) {
+		this.student = student;
+		this.testDetail = testDetail;
+	}
 
 	public Long getId() {
 		return id;
