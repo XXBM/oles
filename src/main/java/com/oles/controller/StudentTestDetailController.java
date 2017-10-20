@@ -29,7 +29,7 @@ public class StudentTestDetailController {
     @Autowired
     UserService userService;
 
-    //添加
+    //生成试题
     @RequestMapping(value = "/generateSubject", method = RequestMethod.POST)
     public List<StudentTestDetail> generateSubject()throws Exception {
         //1.获取当前用户
@@ -44,7 +44,7 @@ public class StudentTestDetailController {
             StudentTestDetail studentTestDetail = new StudentTestDetail((Student)storedUser,testDetails.get(i));
             studentTestDetailService.add(studentTestDetail);
         }
-        //4.查当前TestDetail
+        //4.查当前StudentTestDetail
         Specification<StudentTestDetail> studentTestDetailSpecification = this.studentTestDetailService.query(storedUser.getId());
         List<StudentTestDetail> studentTestDetail = this.studentTestDetailService.findBySepc(studentTestDetailSpecification);
         return studentTestDetail;
