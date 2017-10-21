@@ -30,7 +30,7 @@ public class StudentTestDetailController {
     UserService userService;
 
     //生成试题
-    @RequestMapping(value = "/generateSubject", method = RequestMethod.POST)
+    @RequestMapping(value = "/generateSubject", method = RequestMethod.GET)
     public List<StudentTestDetail> generateSubject()throws Exception {
         //1.获取当前用户
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
