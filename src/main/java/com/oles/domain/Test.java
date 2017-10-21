@@ -32,7 +32,7 @@ public class Test implements Serializable {
 	private String name;
 
 	@javax.persistence.Column(nullable = true)
-	private boolean isToConduct;
+	private Boolean isToConduct;
 
 	@JsonIgnore
 	@javax.persistence.OneToMany(mappedBy = "test",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -67,11 +67,11 @@ public class Test implements Serializable {
 		this.dateTime = dateTime;
 	}
 
-	public boolean isToConduct() {
+	public Boolean getToConduct() {
 		return isToConduct;
 	}
 
-	public void setToConduct(boolean toConduct) {
+	public void setToConduct(Boolean toConduct) {
 		isToConduct = toConduct;
 	}
 

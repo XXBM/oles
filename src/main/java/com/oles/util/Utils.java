@@ -29,6 +29,11 @@ public class Utils {
         return storedUser;
     }
 
+    public static String getDate(Calendar calendar) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(calendar.getTime());
+    }
+
     /**
      * 获取当前UserName
      */

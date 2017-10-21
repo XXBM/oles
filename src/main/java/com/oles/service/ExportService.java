@@ -3,6 +3,7 @@ package com.oles.service;
 import com.oles.domain.Test;
 import com.oles.domain.TestDetail;
 import com.oles.domain.message.Result;
+import com.oles.util.Utils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.slf4j.Logger;
@@ -30,6 +31,7 @@ public class ExportService {
         HSSFSheet sheet = workbook.createSheet("学生成绩信息");
         //在sheet中添加表头第0行
         HSSFRow row = sheet.createRow(0);
+        row.setHeightInPoints(30);//设置行高
         //设置表头单元格居中
         HSSFCellStyle style = workbook.createCellStyle();
         //水平居中
@@ -46,9 +48,22 @@ public class ExportService {
         cell = row.createCell(0);
         cell.setCellValue(test.getName());
         cell.setCellStyle(style);
-        CellRangeAddress region = new CellRangeAddress(0, 0, 0, 8);
+        CellRangeAddress region = new CellRangeAddress(0, 0, 0, 2);
         sheet.addMergedRegion(region);
+        cell = row.createCell(3);
+        cell.setCellValue("日期："+Utils.getDate(test.getDateTime()));
 
+        //第二行
+        HSSFRow row2 = sheet.createRow(2);
+        row2.setHeightInPoints(25);//设置行高
+        cell = row2.createCell(0);
+        cell.setCellValue("题目");
+        cell = row2.createCell(1);
+        cell.setCellValue("学生");
+        cell = row2.createCell(2);
+        cell.setCellValue("自然语言答案");
+        cell = row2.createCell(3);
+        cell.setCellValue("代码答案");
         //TODO 导出
         //数据
 //        for(int i=0;i<testDetails.size();i++){

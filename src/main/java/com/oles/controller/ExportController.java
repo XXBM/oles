@@ -31,6 +31,8 @@ public class ExportController {
     public Result exportExcel(@RequestParam("id") Long id){
         //1.考试名称+考试时间
         Test test = testService.findOne(id);
+        test.setToConduct(true);
+        testService.update(test);
         //2.考试题目
         List<TestDetail> testDetails = test.getTestDetail();
         //导出excel
