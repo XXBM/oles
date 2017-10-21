@@ -1,9 +1,7 @@
 package com.oles.controller;
 
-import com.oles.domain.Student;
 import com.oles.domain.StudentTestDetail;
 import com.oles.domain.TestDetail;
-import com.oles.domain.User;
 import com.oles.service.StudentTestDetailService;
 import com.oles.service.TestDetailService;
 import com.oles.service.UserService;
@@ -12,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,23 +28,24 @@ public class StudentTestDetailController {
 
     //生成试题
     @RequestMapping(value = "/generateSubject", method = RequestMethod.GET)
-    public List<StudentTestDetail> generateSubject()throws Exception {
+    public List<TestDetail> generateSubject()throws Exception {
         //1.获取当前用户
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User storedUser = userService.findByUsername(username);
+//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//        User storedUser = userService.findByUsername(username);
         //2.找到当前考试的题目(条件：当前考试+试卷类型)
         //TODO 根据IP地址生成A卷B卷
         Specification<TestDetail> testDetailSpecification = this.testDetailService.query("A");
         List<TestDetail> testDetails = this.testDetailService.findBySepc(testDetailSpecification);
         //3.开始生成考试题目
-        for(int i=0;i<testDetails.size();i++){
-            StudentTestDetail studentTestDetail = new StudentTestDetail((Student)storedUser,testDetails.get(i));
-            studentTestDetailService.add(studentTestDetail);
-        }
+//        for(int i=0;i<testDetails.size();i++){
+//            StudentTestDetail studentTestDetail = new StudentTestDetail((Student)storedUser,testDetails.get(i));
+//            studentTestDetailService.add(studentTestDetail);
+//        }
         //4.查当前StudentTestDetail
-        Specification<StudentTestDetail> studentTestDetailSpecification = this.studentTestDetailService.query(storedUser.getId());
-        List<StudentTestDetail> studentTestDetail = this.studentTestDetailService.findBySepc(studentTestDetailSpecification);
-        return studentTestDetail;
+//        Specification<StudentTestDetail> studentTestDetailSpecification = this.studentTestDetailService.query(storedUser.getId());
+//        List<StudentTestDetail> studentTestDetail = this.studentTestDetailService.findBySepc(studentTestDetailSpecification);
+//        System.out.println(studentTestDetail.size()+"问题个数");
+        return testDetails;
     }
 
     /**

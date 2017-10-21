@@ -15,7 +15,6 @@ import java.io.Serializable;
  
 @javax.persistence.Entity 
 public class StudentTestDetail implements Serializable {
-
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
