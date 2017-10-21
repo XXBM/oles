@@ -23,6 +23,15 @@ public class TestDetailService extends BasicService<TestDetail,Long> {
     @Autowired
     TestDetailRepository testDetailRepository;
 
+    public Page<TestDetail> findByTestId(Long id, Pageable pageable) {
+        return this.testDetailRepository.findByTestId(id, pageable);
+    }
+
+    public List<TestDetail> findByTestId(Long id) {
+        return this.testDetailRepository.findByTestId(id);
+    }
+
+
     /**
      * 多条件查询
      */

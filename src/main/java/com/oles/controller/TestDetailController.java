@@ -5,6 +5,7 @@ import com.oles.service.TestDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -25,6 +26,18 @@ public class TestDetailController {
         return testDetails;
     }
 
+    @RequestMapping(value = "/findByTestId", method = RequestMethod.GET)
+    public Map<String, Object> findByTestId(@RequestParam("id") Long id,
+                                            @RequestParam(value = "page") Integer page,
+                                            @RequestParam(value = "rows") Integer size) throws Exception {
+        Map<String, Object> map = new HashMap<String, Object>();
+        Pageable pageable = new PageRequest(page - 1, size);
+        Page<TestDetail> list = this.testDetailService.findByTestId(id, pageable);
+        int total = this.testDetailService.findByTestId(id).size();
+        map.put("total", total);
+        map.put("rows", list.getContent());
+        return map;
+    }
 
     //实现分页
     @RequestMapping(value = "/displayAllTestDetails", method = RequestMethod.GET)
