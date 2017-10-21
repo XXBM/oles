@@ -6,7 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 
 
@@ -33,7 +33,7 @@ public class TestDetail implements Serializable {
 
 	@JsonIgnore
 	@javax.persistence.OneToMany(mappedBy = "testDetail",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<StudentTestDetail> studentTest;
+	private List<StudentTestDetail> studentTestDetails;
 
 
 	public TestDetail(){
@@ -80,12 +80,12 @@ public class TestDetail implements Serializable {
 		this.test = test;
 	}
 
-	public Set<StudentTestDetail> getStudentTest() {
-		return studentTest;
+	public List<StudentTestDetail> getStudentTestDetails() {
+		return studentTestDetails;
 	}
 
-	public void setStudentTest(Set<StudentTestDetail> studentTest) {
-		this.studentTest = studentTest;
+	public void setStudentTestDetails(List<StudentTestDetail> studentTestDetails) {
+		this.studentTestDetails = studentTestDetails;
 	}
 }
 

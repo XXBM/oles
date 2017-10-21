@@ -9,7 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Set;
+import java.util.List;
 
 
 
@@ -34,7 +34,7 @@ public class Test implements Serializable {
 
 	@JsonIgnore
 	@javax.persistence.OneToMany(mappedBy = "test",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<TestDetail> testDetail;
+	private List<TestDetail> testDetail;
 
 
 	public Test(){
@@ -65,11 +65,11 @@ public class Test implements Serializable {
 		isToConduct = toConduct;
 	}
 
-	public Set<TestDetail> getTestDetail() {
+	public List<TestDetail> getTestDetail() {
 		return testDetail;
 	}
 
-	public void setTestDetail(Set<TestDetail> testDetail) {
+	public void setTestDetail(List<TestDetail> testDetail) {
 		this.testDetail = testDetail;
 	}
 }
