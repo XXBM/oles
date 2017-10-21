@@ -71,12 +71,6 @@ public class ExportService {
         cell = row1.createCell(3);
         cell.setCellValue("代码答案");
 
-//        HSSFRow row2 = sheet.createRow(2);
-//        cell = row2.createCell(0);
-//        cell.setCellValue("题目1");
-//        HSSFRow row17 = sheet.createRow(17);
-//        cell = row17.createCell(0);
-//        cell.setCellValue("题目2");
         //TODO 导出
         //数据
         for(int i=0,x=2;i<testDetails.size() && x < 92;i++,x+=15){
