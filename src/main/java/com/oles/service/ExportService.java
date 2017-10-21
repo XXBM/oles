@@ -1,8 +1,10 @@
 package com.oles.service;
 
+import com.oles.domain.Test;
 import com.oles.domain.TestDetail;
 import com.oles.domain.message.Result;
 import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,7 @@ import java.util.List;
 @Service
 public class ExportService {
     final Logger logger = LoggerFactory.getLogger(ExportService.class);
-    public Result exportExcel(Long id,List<TestDetail> testDetails) {
+    public Result exportExcel(Test test, List<TestDetail> testDetails) {
         //创建一个workbook， 相当于一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
         //在workbook中创建一个sheet，相当于excel的sheet
@@ -39,6 +41,13 @@ public class ExportService {
         font.setFontHeightInPoints((short) 12);
         style.setFont(font);
 
+        //第一行
+        HSSFCell cell = null;
+        cell = row.createCell(0);
+        cell.setCellValue(test.getName());
+        cell.setCellStyle(style);
+        CellRangeAddress region = new CellRangeAddress(0, 0, 0, 8);
+        sheet.addMergedRegion(region);
 
         //TODO 导出
         //数据

@@ -29,6 +29,8 @@ public class Test implements Serializable {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Calendar dateTime;
 
+	private String name;
+
 	@javax.persistence.Column(nullable = true)
 	private boolean isToConduct;
 
@@ -47,6 +49,14 @@ public class Test implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Calendar getDateTime() {
