@@ -28,23 +28,18 @@ public class StudentTestDetailController {
 
     //生成试题
     @RequestMapping(value = "/generateSubject", method = RequestMethod.GET)
-    public List<TestDetail> generateSubject()throws Exception {
-        //1.获取当前用户
-//        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//        User storedUser = userService.findByUsername(username);
-        //2.找到当前考试的题目(条件：当前考试+试卷类型)
+    public List<TestDetail> generateSubject(HttpServletRequest request)throws Exception {
         //TODO 根据IP地址生成A卷B卷
-        Specification<TestDetail> testDetailSpecification = this.testDetailService.query("A");
+        String ipStr = Utils.getIpAddr(request);
+        long ip = Utils.ipToLong("255.248.0.0");
+        System.out.println("ip地址是："+ip);
+        Specification<TestDetail> testDetailSpecification;
+        if(ip%2==0){
+             testDetailSpecification = this.testDetailService.query("A");
+        }else{
+             testDetailSpecification = this.testDetailService.query("B");
+        }
         List<TestDetail> testDetails = this.testDetailService.findBySepc(testDetailSpecification);
-        //3.开始生成考试题目
-//        for(int i=0;i<testDetails.size();i++){
-//            StudentTestDetail studentTestDetail = new StudentTestDetail((Student)storedUser,testDetails.get(i));
-//            studentTestDetailService.add(studentTestDetail);
-//        }
-        //4.查当前StudentTestDetail
-//        Specification<StudentTestDetail> studentTestDetailSpecification = this.studentTestDetailService.query(storedUser.getId());
-//        List<StudentTestDetail> studentTestDetail = this.studentTestDetailService.findBySepc(studentTestDetailSpecification);
-//        System.out.println(studentTestDetail.size()+"问题个数");
         return testDetails;
     }
 
