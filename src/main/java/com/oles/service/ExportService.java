@@ -81,12 +81,13 @@ public class ExportService {
         //数据
         for(int i=0,x=2;i<testDetails.size() && x < 92;i++,x+=15){
             //写入题目
-            HSSFRow newRow = sheet.createRow(x);
-            cell = newRow.createCell(0);
-            cell.setCellValue(testDetails.get(i).getContents());
+            HSSFRow newRow = null;
             List<StudentTestDetail> studentTestDetails = testDetails.get(i).getStudentTestDetails();
             for(int y=0;y<studentTestDetails.size();y++){
                 //写入某个学生的答案
+                newRow = sheet.createRow(x+y);
+                cell = newRow.createCell(0);
+                cell.setCellValue(testDetails.get(i).getContents());
                 cell = newRow.createCell(1);
                 cell.setCellValue(studentTestDetails.get(y).getStudent().getName());
                 cell = newRow.createCell(2);
