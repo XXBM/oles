@@ -1,6 +1,9 @@
 package com.oles.domain;
 
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import java.io.Serializable;
 
@@ -12,8 +15,9 @@ import java.io.Serializable;
  
 @javax.persistence.Entity 
 public class StudentTestDetail implements Serializable {
-	 
-	@javax.persistence.Id
+
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 
 	private String answerWithAlgorithm;

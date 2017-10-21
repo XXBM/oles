@@ -2,9 +2,7 @@ package com.oles.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,7 +16,8 @@ import java.util.List;
  
 @javax.persistence.Entity 
 public class TestDetail implements Serializable {
-	@javax.persistence.Id
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 
 	private String kind;

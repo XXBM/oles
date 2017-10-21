@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.oles.jsonDeserialize.CustomDateSerializer;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
@@ -21,7 +20,8 @@ import java.util.List;
  
 @javax.persistence.Entity 
 public class Test implements Serializable {
-	@javax.persistence.Id
+	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 
 	@JsonSerialize(using = CustomDateSerializer.class)

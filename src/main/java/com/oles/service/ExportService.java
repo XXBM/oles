@@ -1,5 +1,6 @@
 package com.oles.service;
 
+import com.oles.domain.StudentTestDetail;
 import com.oles.domain.Test;
 import com.oles.domain.TestDetail;
 import com.oles.domain.message.Result;
@@ -43,6 +44,11 @@ public class ExportService {
         font.setFontHeightInPoints((short) 12);
         style.setFont(font);
 
+        //设置列宽
+        for(int i=0;i<4;i++){
+            sheet.setColumnWidth(i, 10 * 512);
+        }
+
         //第一行
         HSSFCell cell = null;
         cell = row.createCell(0);
@@ -54,34 +60,57 @@ public class ExportService {
         cell.setCellValue("日期："+Utils.getDate(test.getDateTime()));
 
         //第二行
-        HSSFRow row2 = sheet.createRow(2);
-        row2.setHeightInPoints(25);//设置行高
-        cell = row2.createCell(0);
+        HSSFRow row1 = sheet.createRow(1);
+        row1.setHeightInPoints(25);//设置行高
+        cell = row1.createCell(0);
         cell.setCellValue("题目");
-        cell = row2.createCell(1);
+        cell = row1.createCell(1);
         cell.setCellValue("学生");
-        cell = row2.createCell(2);
+        cell = row1.createCell(2);
         cell.setCellValue("自然语言答案");
-        cell = row2.createCell(3);
+        cell = row1.createCell(3);
         cell.setCellValue("代码答案");
+
+//        HSSFRow row2 = sheet.createRow(2);
+//        cell = row2.createCell(0);
+//        cell.setCellValue("题目1");
+//        HSSFRow row17 = sheet.createRow(17);
+//        cell = row17.createCell(0);
+//        cell.setCellValue("题目2");
         //TODO 导出
         //数据
-//        for(int i=0;i<testDetails.size();i++){
-//            //写入题目
-//            List<StudentTestDetail> studentTestDetails = testDetails.get(i).getStudentTestDetails();
-//            for(int x=0;x<studentTestDetails.size();x++){
-//                //写入某个学生的答案
-//
-//            }
-//        }
-
-
-        //为每一列设置自动宽度
-        for (int i = 0; i < 21; i++) {
-            sheet.autoSizeColumn(i);
+        for(int i=0,x=2;i<testDetails.size() && x < 92;i++,x+=15){
+            //写入题目
+            HSSFRow newRow = sheet.createRow(x);
+            cell = newRow.createCell(0);
+            cell.setCellValue(testDetails.get(i).getContents());
+            List<StudentTestDetail> studentTestDetails = testDetails.get(i).getStudentTestDetails();
+            for(int y=0;y<studentTestDetails.size();y++){
+                //写入某个学生的答案
+                cell = newRow.createCell(1);
+                cell.setCellValue(studentTestDetails.get(y).getStudent().getName());
+                cell = newRow.createCell(2);
+                cell.setCellValue(studentTestDetails.get(y).getAnswerWithAlgorithm());
+                cell = newRow.createCell(3);
+                cell.setCellValue(studentTestDetails.get(y).getAnswerWithCode());
+            }
         }
 
-//        //获取桌面路径
+
+        CellRangeAddress region1 = new CellRangeAddress(2, 16, 0, 0);
+        sheet.addMergedRegion(region1);
+        CellRangeAddress region2 = new CellRangeAddress(17, 31, 0, 0);
+        sheet.addMergedRegion(region2);
+        CellRangeAddress region3 = new CellRangeAddress(32, 46, 0, 0);
+        sheet.addMergedRegion(region3);
+        CellRangeAddress region4 = new CellRangeAddress(47, 61, 0, 0);
+        sheet.addMergedRegion(region4);
+        CellRangeAddress region5 = new CellRangeAddress(62, 76, 0, 0);
+        sheet.addMergedRegion(region5);
+        CellRangeAddress region6 = new CellRangeAddress(77, 91, 0, 0);
+        sheet.addMergedRegion(region6);
+
+        //获取桌面路径
         FileSystemView fsv = FileSystemView.getFileSystemView();
 
         String url = fsv.getHomeDirectory().getPath();
