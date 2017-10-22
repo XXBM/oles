@@ -82,8 +82,14 @@ public class StudentTestDetailController {
     public Map<String, Object> addStuTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User storedUser = userService.findByUsername(username);
-        studentTestDetail.setStudent((Student)storedUser);
-        this.studentTestDetailService.add(studentTestDetail);
+        //TODO 判断
+        StudentTestDetail std = studentTestDetailService.findByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getId());
+        if(std==null){
+            studentTestDetail.setStudent((Student)storedUser);
+            this.studentTestDetailService.add(studentTestDetail);
+        }else {
+            studentTestDetail = std;
+        }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("studentTestDetail", studentTestDetail);
         return map;

@@ -22,6 +22,12 @@ import java.util.List;
 public class StudentTestDetailService extends BasicService<StudentTestDetail,Long> {
     @Autowired
     StudentTestDetailRepository studentTestDetailRepository;
+
+    public StudentTestDetail findByStudentIdAndTestDetailId(Long studentId,Long testId) {
+        return this.studentTestDetailRepository.findByStudentIdAndTestDetailId(studentId, testId);
+    }
+
+
     /**
      * 多条件查询
      */

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentTestDetailRepository extends MyRepository<StudentTestDetail,Long> {
-
+    StudentTestDetail findByStudentIdAndTestDetailId(Long studentId, Long testId);
 }
