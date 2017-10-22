@@ -80,6 +80,7 @@ public class StudentTestDetailController {
     //添加
     @RequestMapping(value = "/addStuTestDetail", method = RequestMethod.POST)
     public Map<String, Object> addStuTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
+        System.out.println("testDetail的id:"+studentTestDetail.getTestDetail().getId());
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User storedUser = userService.findByUsername(username);
         //TODO 判断
@@ -87,11 +88,13 @@ public class StudentTestDetailController {
         if(std==null){
             studentTestDetail.setStudent((Student)storedUser);
             this.studentTestDetailService.add(studentTestDetail);
+            studentTestDetail = studentTestDetailService.getByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getTestDetail().getId());
         }else {
             studentTestDetail = std;
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("studentTestDetail", studentTestDetail);
+        System.out.println(studentTestDetail.getTestDetail().getContents());
         return map;
     }
 

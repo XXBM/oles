@@ -46,6 +46,10 @@ public class StudentTestDetail implements Serializable {
 		super();
 	}
 
+	public StudentTestDetail(Long id){
+		this.id = id;
+	}
+
 	public StudentTestDetail(Student student, TestDetail testDetail) {
 		this.student = student;
 		this.testDetail = testDetail;
