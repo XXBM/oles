@@ -21,7 +21,13 @@ public class StudentTestDetail implements Serializable {
 
 	private String answerWithAlgorithm;
 
+	@javax.persistence.Column(nullable = true)
+	private Boolean answerWithAlgorithmSign;
+
 	private String answerWithCode;
+
+	@javax.persistence.Column(nullable = true)
+	private Boolean answerWithCodeSign;
 
 	private int gradeForAlgortithm;
 
@@ -51,6 +57,22 @@ public class StudentTestDetail implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Boolean getAnswerWithAlgorithmSign() {
+		return answerWithAlgorithmSign;
+	}
+
+	public void setAnswerWithAlgorithmSign(Boolean answerWithAlgorithmSign) {
+		this.answerWithAlgorithmSign = answerWithAlgorithmSign;
+	}
+
+	public Boolean getAnswerWithCodeSign() {
+		return answerWithCodeSign;
+	}
+
+	public void setAnswerWithCodeSign(Boolean answerWithCodeSign) {
+		this.answerWithCodeSign = answerWithCodeSign;
 	}
 
 	public String getAnswerWithAlgorithm() {

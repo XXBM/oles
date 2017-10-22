@@ -1,7 +1,9 @@
 package com.oles.controller;
 
+import com.oles.domain.Student;
 import com.oles.domain.StudentTestDetail;
 import com.oles.domain.TestDetail;
+import com.oles.domain.User;
 import com.oles.service.StudentTestDetailService;
 import com.oles.service.TestDetailService;
 import com.oles.service.UserService;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,6 +72,18 @@ public class StudentTestDetailController {
     @RequestMapping(value = "/updateStudentTestDetail", method = RequestMethod.PUT)
     public Map<String, Object> updateStudentTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
         this.studentTestDetailService.update(studentTestDetail);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("studentTestDetail", studentTestDetail);
+        return map;
+    }
+
+    //添加
+    @RequestMapping(value = "/addStuTestDetail", method = RequestMethod.POST)
+    public Map<String, Object> addStuTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User storedUser = userService.findByUsername(username);
+        studentTestDetail.setStudent((Student)storedUser);
+        this.studentTestDetailService.add(studentTestDetail);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("studentTestDetail", studentTestDetail);
         return map;

@@ -197,7 +197,6 @@ public class Utils {
 
     // example : 192.168.1.2
     public static long ipToLong(String ipAddress) {
-
         // ipAddressInArray[0] = 192
         String[] ipAddressInArray = ipAddress.split("\\.");
 
@@ -214,9 +213,7 @@ public class Utils {
             result += ip * Math.pow(256, power);
 
         }
-
         return result;
-
     }
 
     public static long ipToLong2(String ipAddress) {
