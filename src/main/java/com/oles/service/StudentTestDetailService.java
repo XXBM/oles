@@ -23,8 +23,8 @@ public class StudentTestDetailService extends BasicService<StudentTestDetail,Lon
     @Autowired
     StudentTestDetailRepository studentTestDetailRepository;
 
-    public StudentTestDetail findByStudentIdAndTestDetailId(Long studentId,Long testId) {
-        return this.studentTestDetailRepository.findByStudentIdAndTestDetailId(studentId, testId);
+    public StudentTestDetail getByStudentIdAndTestDetailId(Long studentId,Long testDetailId) {
+        return this.studentTestDetailRepository.getByStudentIdAndTestDetailId(studentId, testDetailId);
     }
 
 

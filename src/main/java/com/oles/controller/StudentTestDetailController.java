@@ -83,7 +83,7 @@ public class StudentTestDetailController {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User storedUser = userService.findByUsername(username);
         //TODO 判断
-        StudentTestDetail std = studentTestDetailService.findByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getTestDetail().getId());
+        StudentTestDetail std = studentTestDetailService.getByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getTestDetail().getId());
         if(std==null){
             studentTestDetail.setStudent((Student)storedUser);
             this.studentTestDetailService.add(studentTestDetail);
