@@ -49,7 +49,6 @@ public class TestController {
     //添加
     @RequestMapping(value = "/addTest", method = RequestMethod.POST)
     public Map<String, Object> addTest(@RequestBody Test test)throws Exception {
-        test.setToConduct(false);
         this.testService.add(test);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("test", test);
