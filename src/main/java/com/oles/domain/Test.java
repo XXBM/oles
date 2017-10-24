@@ -43,6 +43,10 @@ public class Test implements Serializable {
 		super();
 	}
 
+	public Test(Long id){
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}
