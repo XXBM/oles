@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,14 +31,14 @@ public class ExportController {
      * @param
      */
     @RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-    public Result exportExcel(@RequestParam("id") Long id){
+    public Result exportExcel(@RequestParam("id") Long id,
+                              HttpServletResponse response,
+                              HttpServletRequest request) throws IOException {
         //1.考试名称+考试时间
         Test test = testService.findOne(id);
-        test.setToConduct(true);
-        testService.update(test);
         //2.考试题目
         List<TestDetail> testDetails = test.getTestDetail();
         //导出excel
-       return this.exportService.exportExcel(test,testDetails);
+       return this.exportService.exportExcel(test,testDetails,response,request);
     }
 }

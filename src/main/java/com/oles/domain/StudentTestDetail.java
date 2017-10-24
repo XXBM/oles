@@ -15,6 +15,7 @@ import java.io.Serializable;
  
 @javax.persistence.Entity 
 public class StudentTestDetail implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
@@ -48,6 +49,7 @@ public class StudentTestDetail implements Serializable {
 
 	public StudentTestDetail(Long id){
 		this.id = id;
+
 	}
 
 	public StudentTestDetail(Student student, TestDetail testDetail) {
@@ -55,6 +57,17 @@ public class StudentTestDetail implements Serializable {
 		this.testDetail = testDetail;
 	}
 
+	public StudentTestDetail(Long id,String answerWithAlgorithm, Boolean answerWithAlgorithmSign, String answerWithCode, Boolean answerWithCodeSign, int gradeForAlgortithm, int gradeForCode, Student student, TestDetail testDetail) {
+		this.id = id;
+		this.answerWithAlgorithm = answerWithAlgorithm;
+		this.answerWithAlgorithmSign = answerWithAlgorithmSign;
+		this.answerWithCode = answerWithCode;
+		this.answerWithCodeSign = answerWithCodeSign;
+		this.gradeForAlgortithm = gradeForAlgortithm;
+		this.gradeForCode = gradeForCode;
+		this.student = student;
+		this.testDetail = testDetail;
+	}
 	public Long getId() {
 		return id;
 	}

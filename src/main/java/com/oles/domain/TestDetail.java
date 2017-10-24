@@ -34,6 +34,14 @@ public class TestDetail implements Serializable {
 	@javax.persistence.OneToMany(mappedBy = "testDetail",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<StudentTestDetail> studentTestDetails;
 
+	public TestDetail(Long id,String kind, Integer fullScore, String contents, Test test, List<StudentTestDetail> studentTestDetails) {
+		this.id = id;
+		this.kind = kind;
+		this.fullScore = fullScore;
+		this.contents = contents;
+		this.test = test;
+		this.studentTestDetails = studentTestDetails;
+	}
 
 	public TestDetail(){
 		super();
@@ -42,6 +50,7 @@ public class TestDetail implements Serializable {
 
 	public TestDetail(Long id){
 		this.id = id;
+		this.contents = contents;
 	}
 
 	public Long getId() {

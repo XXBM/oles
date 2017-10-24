@@ -34,7 +34,7 @@ public class StudentTestDetailController {
     public List<TestDetail> generateSubject(HttpServletRequest request)throws Exception {
         //TODO 根据IP地址生成A卷B卷
         String ipStr = Utils.getIpAddr(request);
-        long ip = Utils.ipToLong("255.248.0.0");
+        long ip = Utils.ipToLong(ipStr);
         System.out.println("ip地址是："+ip);
         Specification<TestDetail> testDetailSpecification;
         if(ip%2==0){
@@ -71,6 +71,7 @@ public class StudentTestDetailController {
     //修改学院信息    完成 改
     @RequestMapping(value = "/updateStudentTestDetail", method = RequestMethod.PUT)
     public Map<String, Object> updateStudentTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
+        System.out.println(studentTestDetail.getId());
         this.studentTestDetailService.update(studentTestDetail);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("studentTestDetail", studentTestDetail);
@@ -80,15 +81,14 @@ public class StudentTestDetailController {
     //添加
     @RequestMapping(value = "/addStuTestDetail", method = RequestMethod.POST)
     public Map<String, Object> addStuTestDetail(@RequestBody StudentTestDetail studentTestDetail)throws Exception {
-        System.out.println("testDetail的id:"+studentTestDetail.getTestDetail().getId());
+        System.out.println(studentTestDetail.getTestDetail().getId()+"lalall");
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         User storedUser = userService.findByUsername(username);
-        //TODO 判断
+        //判断
         StudentTestDetail std = studentTestDetailService.getByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getTestDetail().getId());
         if(std==null){
             studentTestDetail.setStudent((Student)storedUser);
             this.studentTestDetailService.add(studentTestDetail);
-            studentTestDetail = studentTestDetailService.getByStudentIdAndTestDetailId(storedUser.getId(),studentTestDetail.getTestDetail().getId());
         }else {
             studentTestDetail = std;
         }

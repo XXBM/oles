@@ -11,12 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 import java.util.List;
 
 /**
@@ -25,7 +23,10 @@ import java.util.List;
 @Service
 public class ExportService {
     final Logger logger = LoggerFactory.getLogger(ExportService.class);
-    public Result exportExcel(Test test, List<TestDetail> testDetails) {
+    public Result exportExcel(Test test,
+                              List<TestDetail> testDetails,
+                              HttpServletResponse response,
+                              HttpServletRequest request) throws IOException {
         //创建一个workbook， 相当于一个excel
         HSSFWorkbook workbook = new HSSFWorkbook();
         //在workbook中创建一个sheet，相当于excel的sheet
@@ -106,55 +107,62 @@ public class ExportService {
         sheet.addMergedRegion(region6);
 
         //获取桌面路径
-        FileSystemView fsv = FileSystemView.getFileSystemView();
+        //FileSystemView fsv = FileSystemView.getFileSystemView();
 
-        String url = fsv.getHomeDirectory().getPath();
+        //String url = fsv.getHomeDirectory().getPath();
 
         //输出文件
-        FileOutputStream fileOutputStream = null;
-
+//        FileOutputStream fileOutputStream = null;
+//
         Result result = new Result();
-
-        String fileName = "", filePath = "";
+//
+//        String fileName = "", filePath = "";
 
         //判断系统类型，系统不同，对应路径不同
-//        String url = System.getProperty("user.dir") + "/src/main/resources/static";
+        //String url = System.getProperty("user.dir") + "/src/main/resources/static";
 //        String url1 = System.getProperty("user.dir");
 //        int indexOf = url1.indexOf("bin");
 //        String url2= url1.substring(0, indexOf);
 //        String url = url2 + "webapps/oles" + "/WEB-INF/classes/static";
 
-        url += "/test.xls";
+        //url += "/test.xls";
 
-        try {
-            fileOutputStream = new FileOutputStream(url);
-            //给文件上锁
-            FileChannel fileChannel = fileOutputStream.getChannel();
-            FileLock fl = fileChannel.tryLock();
-            //fl为null时代表上锁失败，文件已被打开
-            if (fl == null) {
-                result.setMsg("导出失败，请关闭文件后再次操作。");
-                return result;
-            }
-            //上锁成功，继续执行写入
-            workbook.write(fileOutputStream);
-            fileOutputStream.close();
-            result.setMsg("导出成功。");
-            result.setSuccess(true);
-            return result;
-        } catch (FileNotFoundException e) {
-            if(e.getMessage().contains("另一个程序正在使用此文件，进程无法访问。")){
-                result.setMsg("导出失败，请关闭文件后再次操作。");
-            }else{
-                result.setMsg("导出失败，请稍后再次操作!");
-            }
-            logger.debug(e.getMessage());
-            return result;
-        } catch (IOException e) {
-            result.setMsg("导出失败，请再次操作。");
-            logger.debug(e.getMessage());
-            return result;
-        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        workbook.write(byteArrayOutputStream);
+        byteArrayOutputStream.flush();
+        Utils.download(byteArrayOutputStream,response,request,"onlineTest.xlsx");
+        System.out.println("****************");
+
+//        try {
+//            fileOutputStream = new FileOutputStream(url);
+//            //给文件上锁
+//            FileChannel fileChannel = fileOutputStream.getChannel();
+//            FileLock fl = fileChannel.tryLock();
+//            //fl为null时代表上锁失败，文件已被打开
+//            if (fl == null) {
+//                result.setMsg("导出失败，请关闭文件后再次操作。");
+//                return result;
+//            }
+//            //上锁成功，继续执行写入
+//            workbook.write(fileOutputStream);
+//            fileOutputStream.close();
+//            result.setMsg("导出成功。");
+//            result.setSuccess(true);
+//            return result;
+//        } catch (FileNotFoundException e) {
+//            if(e.getMessage().contains("另一个程序正在使用此文件，进程无法访问。")){
+//                result.setMsg("导出失败，请关闭文件后再次操作。");
+//            }else{
+//                result.setMsg("导出失败，请稍后再次操作!");
+//            }
+//            logger.debug(e.getMessage());
+//            return result;
+//        } catch (IOException e) {
+//            result.setMsg("导出失败，请再次操作。");
+//            logger.debug(e.getMessage());
+//            return result;
+//        }
+        return result;
 
     }
 
